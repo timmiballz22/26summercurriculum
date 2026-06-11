@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0f172a" />
+<title>Summer Learning Canvas</title>
+<style>
+:root{
+  --bg:#0b1020; --bg2:#101827; --side:#070b16; --side2:#0c1324;
+  --panel:#141e32; --panel2:#17233a; --panel3:#1b2943;
+  --ink:#eef4ff; --muted:#a8b3c7; --soft:#7e8aa1; --line:#2c3b59;
+  --blue:#5aa9ff; --green:#4ade80; --amber:#fbbf24; --purple:#c084fc; --cyan:#22d3ee; --pink:#fb7185;
+  --shadow: 0 18px 55px rgba(0,0,0,.28);
+  --radius: 18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:88px;}
+body{margin:0; background:radial-gradient(circle at top left, #14213e 0, var(--bg) 360px), var(--bg); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.48;}
+a{color:#93c5fd; text-decoration:none} a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit}
+.layout{display:grid; grid-template-columns:310px minmax(0,1fr); min-height:100vh}
+aside{position:sticky; top:0; height:100vh; overflow:auto; background:linear-gradient(180deg,var(--side),var(--side2)); border-right:1px solid #1e2d4b; padding:22px 18px; scrollbar-width:thin; scrollbar-color:#405276 transparent;}
+main{max-width:1220px; width:100%; margin:0 auto; padding:28px 30px 70px;}
+.brand{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
+.logo{width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,var(--cyan),var(--blue)); box-shadow:0 10px 30px rgba(34,211,238,.2)}
+.brandText{font-size:20px; font-weight:900; letter-spacing:-.03em; line-height:1.05}.mini{color:var(--muted); font-size:13px; margin:8px 0 16px}.saved{font-size:12px; color:var(--green); margin:8px 0; min-height:18px}.progressCard,.toolCard{border:1px solid #223353; background:rgba(255,255,255,.035); border-radius:18px; padding:14px; margin:14px 0}.progressTop{display:flex; justify-content:space-between; font-weight:850; font-size:14px}.track{height:12px; background:#0b1220; border:1px solid #263a5f; border-radius:999px; overflow:hidden; margin:10px 0 8px}.fill{height:100%; width:0%; background:linear-gradient(90deg,var(--cyan),var(--blue),var(--purple)); transition:width .25s ease}.progressSmall{font-size:12px; color:var(--muted)}
+.nav{margin:14px 0}.nav a{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 11px; margin:6px 0; border-radius:12px; color:#dce8ff; font-weight:800; font-size:14px; border:1px solid transparent}.nav a:hover,.nav a.active{background:#111c33; border-color:#263a5f; text-decoration:none}.nav .navPct{font-size:12px; color:var(--soft); font-weight:900}.toolCard button,.toolCard label,.toolCard a{width:100%; display:block; text-align:center; border:1px solid #2c4269; background:#101b30; color:#eef4ff; border-radius:12px; padding:9px 10px; margin:7px 0; font-weight:850; cursor:pointer}.toolCard button:hover,.toolCard label:hover,.toolCard a:hover{background:#172641; text-decoration:none}.toolCard .danger{border-color:#7f1d1d; background:#21101a}.toolCard .danger:hover{background:#35121e}.tiny{font-size:12px; color:var(--muted)}
+.hero{background:linear-gradient(135deg,rgba(34,211,238,.09),rgba(192,132,252,.08)), var(--panel); border:1px solid var(--line); border-radius:28px; padding:26px; box-shadow:var(--shadow)}h1{font-size:44px; line-height:1; letter-spacing:-.055em; margin:0 0 10px}.hero p{margin:0; color:#c5d0e3; max-width:840px; font-size:17px}.quick{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}.chip{border:1px solid var(--line); background:#111b30; border-radius:999px; padding:8px 11px; color:#dbeafe; font-size:13px; font-weight:800}.topbar{position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:22px 0 18px; padding:12px; border:1px solid var(--line); background:rgba(11,16,32,.88); backdrop-filter:blur(12px); border-radius:20px}.search{flex:1 1 320px; min-width:220px; background:#0d1628; border:1px solid #2c4269; color:var(--ink); border-radius:14px; padding:12px 14px}.select{background:#0d1628; border:1px solid #2c4269; color:var(--ink); border-radius:14px; padding:12px 14px; font-weight:800}.topbtn{background:#1a2b49; color:#eef4ff; border:1px solid #35527e; border-radius:14px; padding:12px 14px; font-weight:850; cursor:pointer}.topbtn:hover{background:#24395f}.sections{display:grid; gap:22px}.section{border:1px solid var(--line); background:rgba(20,30,50,.88); border-radius:24px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,.22)}.sectionHead{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:18px 20px; border-bottom:1px solid var(--line); background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.02))}.sectionHead h2{margin:0; font-size:25px; letter-spacing:-.03em}.sectionHead p{margin:6px 0 0; color:var(--muted); font-size:14px}.sectionStats{text-align:right; min-width:120px}.sectionPct{font-weight:950; font-size:20px}.sectionCount{color:var(--muted); font-size:12px}.taskList{padding:12px}.task{display:grid; grid-template-columns:42px minmax(0,1fr); gap:12px; margin:10px 0; padding:15px; background:linear-gradient(180deg,var(--panel2),var(--panel)); border:1px solid #2a3b59; border-radius:18px}.task:hover{border-color:#4b638e}.task.done{opacity:.67}.task.done h3{text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:rgba(255,255,255,.35)}.checkbox{appearance:none; width:27px; height:27px; border-radius:8px; border:2px solid #60708f; background:#0b1220; cursor:pointer; display:grid; place-items:center; margin-top:2px}.checkbox:checked{background:linear-gradient(135deg,var(--green),#10b981); border-color:#86efac}.checkbox:checked::after{content:'✓'; color:#04120b; font-weight:1000; font-size:19px}.task h3{margin:0; font-size:18px; line-height:1.25}.task p{margin:7px 0 0; color:#c2ccdc; font-size:14.5px}.tags{display:flex; flex-wrap:wrap; gap:7px; margin-top:10px}.tag{font-size:12px; font-weight:900; color:#d7e3f8; border:1px solid #34496e; background:#0f1a2d; padding:4px 8px; border-radius:999px}.links{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}.links a{display:inline-flex; align-items:center; gap:6px; padding:7px 9px; border-radius:999px; border:1px solid #33486d; background:#0d1729; color:#bfdbfe; font-size:13px; font-weight:850}.links a:hover{background:#13233d; text-decoration:none}.accent-cyan .sectionHead{border-top:3px solid var(--cyan)}.accent-blue .sectionHead{border-top:3px solid var(--blue)}.accent-green .sectionHead{border-top:3px solid var(--green)}.accent-amber .sectionHead{border-top:3px solid var(--amber)}.accent-purple .sectionHead{border-top:3px solid var(--purple)}.accent-pink .sectionHead{border-top:3px solid var(--pink)}.empty{display:none; padding:25px; text-align:center; color:var(--muted); border:1px dashed #405276; border-radius:18px}.footer{color:var(--muted); padding:26px 0}.kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; border:1px solid var(--line); background:#0d1729; padding:2px 6px; border-radius:6px}.modal{position:fixed; inset:0; z-index:30; display:none; place-items:center; background:rgba(0,0,0,.66); padding:20px}.modal.show{display:grid}.modalBox{max-width:760px; width:100%; background:#111b30; border:1px solid #34496e; border-radius:22px; padding:18px; box-shadow:var(--shadow)}.modalBox h3{margin:0 0 8px}.modalBox textarea{width:100%; min-height:180px; resize:vertical; border-radius:14px; border:1px solid #34496e; background:#0b1220; color:var(--ink); padding:12px}.modalActions{display:flex; gap:10px; justify-content:flex-end; margin-top:10px}.modalActions button{border:1px solid #35527e; background:#1a2b49; color:#fff; border-radius:12px; padding:10px 13px; cursor:pointer; font-weight:850}
+@media(max-width:980px){.layout{grid-template-columns:1fr}aside{position:relative; height:auto}.nav{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px}main{padding:20px 14px 60px}.topbar{top:0}h1{font-size:36px}.sectionHead{display:block}.sectionStats{text-align:left; margin-top:10px}.task{grid-template-columns:36px 1fr}}
+@media(max-width:560px){.nav{grid-template-columns:1fr}.links a{width:100%; justify-content:center}.task h3{font-size:16px}.hero{padding:20px}h1{font-size:32px}}
+
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="logo"></div><div class="brandText">Summer Learning Canvas</div></div>
+    <div class="mini">Tickboxes autosave in this browser. Use a progress key to move progress between devices.</div>
+    <div class="progressCard">
+      <div class="progressTop"><span>Total</span><span id="totalPct">0%</span></div>
+      <div class="track"><div class="fill" id="totalFill"></div></div>
+      <div class="progressSmall" id="totalText">0 / 0 complete</div>
+      <div class="saved" id="saveStatus">Ready</div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="toolCard">
+      <button id="copyCodeBtn">Copy progress key</button>
+      <button id="loadCodeBtn">Load progress key</button>
+      <div class="tiny">Autosaves locally. The key is your portable save file.</div>
+    </div>
+  </aside>
+  <main>
+    <section class="hero" id="top">
+      <h1>Flexible summer checklist.</h1>
+      <p>Work through the items one by one. The site saves progress automatically, links directly to resources, and uses one compact progress key for moving tickbox progress between devices.</p>
+      <div class="quick">
+        <span class="chip">Dark mode</span><span class="chip">Progress key</span><span class="chip">Khan Academy linked</span><span class="chip">Vietnamese content</span><span class="chip">English books + films</span>
+      </div>
+    </section>
+    <div class="topbar">
+      <input id="search" class="search" placeholder="Search tasks, tags, books, films, Khan topics..." />
+      <select id="sectionFilter" class="select"><option value="all">All sections</option></select>
+      <select id="statusFilter" class="select"><option value="all">All statuses</option><option value="open">Open only</option><option value="done">Done only</option></select>
+      <button class="topbtn" id="clearFilters">Clear</button>
+    </div>
+    <div class="empty" id="emptyState">No matching tasks.</div>
+    <div class="sections" id="sections"></div>
+    <div class="footer">Keyboard: <span class="kbd">Ctrl/⌘ + F</span> browser search, or use the search box above. Progress autosaves locally; use the progress key to move devices.</div>
+  </main>
+</div>
+<div class="modal" id="codeModal"><div class="modalBox"><h3 id="modalTitle">Progress code</h3><textarea id="codeText"></textarea><div class="modalActions"><button id="modalClose">Close</button><button id="modalApply">Apply</button></div></div></div>
+<script>
+const SECTIONS = [{"id": "setup", "title": "Setup & Tracking", "accent": "cyan", "intro": "Install the tools, create your baseline, then use the checklist as your work tracker.", "tasks": [{"id": "setup-khan", "title": "Create or sign into Khan Academy", "detail": "Use one account so course progress is saved. Bookmark Algebra, Algebra 2, and Statistics & Probability.", "tags": ["setup", "math"], "links": [["Khan Academy", "https://www.khanacademy.org/"], ["Algebra", "https://www.khanacademy.org/math/algebra"], ["Algebra 2", "https://www.khanacademy.org/math/algebra2"], ["Statistics", "https://www.khanacademy.org/math/statistics-probability"]]}, {"id": "setup-anki", "title": "Install Anki and import the starter TSV", "detail": "Download Anki, then use the Vietnamese deck links or the embedded starter TSV in the Resource Hub. Add your own cards from mistakes and vocabulary.", "tags": ["setup", "anki"], "links": [["Anki download", "https://apps.ankiweb.net/"], ["Shared decks", "https://ankiweb.net/shared/decks"], ["Vietnamese decks", "https://ankiweb.net/shared/decks?search=vietnamese"]]}, {"id": "setup-progress", "title": "Copy your first progress key", "detail": "After your first work session, click Copy progress key and save it in Notes, Google Docs, or Discord. This is the only manual backup system.", "tags": ["tracking", "progress key"], "links": []}, {"id": "setup-error-log", "title": "Create an error log", "detail": "Columns: date, subject, problem/task, mistake type, correct method, retry date. Every missed math question goes here.", "tags": ["efficiency"], "links": [["Make a Google Sheet", "https://sheets.new/"]]}, {"id": "setup-baseline", "title": "Run a 90-minute baseline check", "detail": "Do one Khan course challenge, one Vietnamese listening summary, and one English paragraph. Record only what was hard.", "tags": ["baseline"], "links": [["Khan Algebra", "https://www.khanacademy.org/math/algebra"], ["VTVGo", "https://vtvgo.vn/"], ["Animal Farm guide", "https://www.sparknotes.com/lit/animalfarm/"]]}]}, {"id": "math", "title": "Math AI Preparation — Khan Academy First", "accent": "blue", "intro": "Do these in order when possible. Each task is: Khan lesson → Khan practice → 5 written examples → error-log corrections.", "tasks": [{"id": "math-01", "title": "Algebra diagnostic", "detail": "Khan Academy Algebra course challenge. Mark weak areas in the error log.", "tags": ["Khan", "diagnostic"], "links": [["Khan Algebra", "https://www.khanacademy.org/math/algebra"]]}, {"id": "math-02", "title": "Number sense: operations, notation, accuracy", "detail": "Review significant figures, scientific notation, percentages, ratios, bounds, and calculator accuracy.", "tags": ["number sense"], "links": [["Khan Algebra basics", "https://www.khanacademy.org/math/algebra-basics"], ["Search: significant figures", "https://www.khanacademy.org/search?page_search_query=significant%20figures"]]}, {"id": "math-03", "title": "Linear equations and rearranging formulas", "detail": "Solve equations, rearrange formulas, and explain each algebra step in writing.", "tags": ["algebra"], "links": [["Search: linear equations", "https://www.khanacademy.org/search?page_search_query=linear%20equations"]]}, {"id": "math-04", "title": "Linear functions and graphs", "detail": "Slope, intercepts, graph interpretation, domain/range, and real-world meaning.", "tags": ["functions"], "links": [["Search: linear functions", "https://www.khanacademy.org/search?page_search_query=linear%20functions"]]}, {"id": "math-05", "title": "Systems of equations", "detail": "Solve by graphing, substitution, and elimination. Add 5 application questions to your error log.", "tags": ["algebra"], "links": [["Search: systems of equations", "https://www.khanacademy.org/search?page_search_query=systems%20of%20equations"]]}, {"id": "math-06", "title": "Quadratics: forms, graph features, and discriminant", "detail": "Standard form, vertex form, roots, vertex, axis of symmetry, discriminant, and graph sketches.", "tags": ["quadratics"], "links": [["Search: quadratic functions", "https://www.khanacademy.org/search?page_search_query=quadratic%20functions"]]}, {"id": "math-07", "title": "Function transformations", "detail": "Translate, stretch, reflect, and combine transformations. Use Desmos to check every sketch.", "tags": ["functions", "desmos"], "links": [["Search: function transformations", "https://www.khanacademy.org/search?page_search_query=function%20transformations"], ["Desmos", "https://www.desmos.com/calculator"]]}, {"id": "math-08", "title": "Exponents and radicals", "detail": "Index laws, rational exponents, surds/radicals, and simplifying expressions cleanly.", "tags": ["algebra2"], "links": [["Khan Algebra 2", "https://www.khanacademy.org/math/algebra2"], ["Search: exponent rules", "https://www.khanacademy.org/search?page_search_query=exponent%20rules"]]}, {"id": "math-09", "title": "Exponential functions and growth/decay", "detail": "Model growth, decay, depreciation, population change, and half-life style contexts.", "tags": ["modelling"], "links": [["Search: exponential functions", "https://www.khanacademy.org/search?page_search_query=exponential%20functions"]]}, {"id": "math-10", "title": "Logarithms: definition and laws", "detail": "Understand logs as inverse exponentials. Practise log laws and basic log equations.", "tags": ["logs"], "links": [["Search: logarithms", "https://www.khanacademy.org/search?page_search_query=logarithms"]]}, {"id": "math-11", "title": "Sequences and series", "detail": "Arithmetic, geometric, recursive, sigma notation, finite series, and financial applications.", "tags": ["sequences"], "links": [["Search: sequences and series", "https://www.khanacademy.org/search?page_search_query=sequences%20and%20series"]]}, {"id": "math-12", "title": "Financial math: compound interest", "detail": "Learn compound interest, depreciation, repeated percentage change, and geometric-series finance problems.", "tags": ["finance"], "links": [["Khan Compound Interest", "https://www.khanacademy.org/economics-finance-domain/core-finance/interest-tutorial/compound-interest-tutorial"]]}, {"id": "math-13", "title": "Statistics: data types, bias, sampling", "detail": "Types of data, sampling methods, bias, and when conclusions are valid.", "tags": ["statistics"], "links": [["Khan Statistics", "https://www.khanacademy.org/math/statistics-probability"], ["Search: sampling methods", "https://www.khanacademy.org/search?page_search_query=sampling%20methods"]]}, {"id": "math-14", "title": "Statistics: quartiles, IQR, box plots, percentiles", "detail": "Interpret distributions and compare groups in writing, not only by calculation.", "tags": ["statistics"], "links": [["Search: box plots", "https://www.khanacademy.org/search?page_search_query=box%20plots"]]}, {"id": "math-15", "title": "Statistics: standard deviation", "detail": "Calculate and interpret SD. Explain what larger/smaller spread means in context.", "tags": ["statistics"], "links": [["Search: standard deviation", "https://www.khanacademy.org/search?page_search_query=standard%20deviation"]]}, {"id": "math-16", "title": "Scatter plots, correlation, and regression", "detail": "Describe direction, form, strength, outliers, correlation, and regression predictions.", "tags": ["regression"], "links": [["Khan quantitative relationships", "https://www.khanacademy.org/math/statistics-probability/describing-relationships-quantitative-data"]]}, {"id": "math-17", "title": "Probability foundations", "detail": "Simple probability, tree diagrams, independent/dependent events, and expected value.", "tags": ["probability"], "links": [["Khan Probability", "https://www.khanacademy.org/math/statistics-probability/probability-library"]]}, {"id": "math-18", "title": "Normal distribution and z-scores", "detail": "Use z-scores to compare values and interpret normal-distribution questions.", "tags": ["statistics"], "links": [["Khan Z-scores", "https://www.khanacademy.org/math/statistics-probability/modeling-distributions-of-data/z-scores/a/z-scores-review"], ["Normal distributions", "https://www.khanacademy.org/math/statistics-probability/modeling-distributions-of-data/normal-distributions-library"]]}, {"id": "math-19", "title": "Chi-square tests", "detail": "Understand observed vs expected, test statistic, p-value meaning, and conclusion in context.", "tags": ["statistics"], "links": [["Khan Chi-square", "https://www.khanacademy.org/math/statistics-probability/inference-categorical-data-chi-square-tests"]]}, {"id": "math-20", "title": "t-tests and significance tests", "detail": "Know the purpose, assumptions at a basic level, p-values, and conclusion wording.", "tags": ["statistics"], "links": [["Khan significance tests", "https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample"]]}, {"id": "math-21", "title": "Coordinate geometry and measurement applications", "detail": "Equation of a line, distance, midpoint, area/volume/surface area, and modelling with diagrams.", "tags": ["geometry"], "links": [["Search: coordinate geometry", "https://www.khanacademy.org/search?page_search_query=coordinate%20geometry"]]}, {"id": "math-22", "title": "Trigonometry essentials", "detail": "Triangle trig, radians, unit circle basics, Pythagorean identity, and basic trig equations.", "tags": ["trigonometry"], "links": [["Search: trigonometry", "https://www.khanacademy.org/search?page_search_query=trigonometry"]]}, {"id": "math-23", "title": "Voronoi diagrams", "detail": "Use GeoGebra to build and interpret Voronoi diagrams. Focus on nearest-site reasoning.", "tags": ["geometry", "AI"], "links": [["GeoGebra Voronoi", "https://www.geogebra.org/search/voronoi"], ["Search: Voronoi diagrams", "https://www.google.com/search?q=Voronoi+diagrams+IB+Math+AI"]]}, {"id": "math-24", "title": "Vectors: basic operations", "detail": "Add, subtract, scale, find magnitude, and interpret 2D motion problems.", "tags": ["vectors"], "links": [["Khan vectors", "https://www.khanacademy.org/math/linear-algebra/vectors-and-spaces"]]}, {"id": "math-25", "title": "Mixed Math AI review set", "detail": "Choose 20 mixed questions. For every mistake, write the corrected method and redo it 48 hours later.", "tags": ["review"], "links": [["Khan course dashboard", "https://www.khanacademy.org/profile/me/courses"]]}]}, {"id": "vietnamese", "title": "Vietnamese — Listening, Reading, Writing While Hearing", "accent": "green", "intro": "Target skills: read Vietnamese, watch Vietnamese, write while hearing, and graduate at the highest level available.", "tasks": [{"id": "vn-01", "title": "Check your Vietnamese level", "detail": "Ask your teacher or use one news/video task as a baseline: understand %, unknown words, summary quality.", "tags": ["baseline"], "links": [["VTVGo", "https://vtvgo.vn/"], ["VietnamPlus", "https://www.vietnamplus.vn/"]]}, {"id": "vn-02", "title": "Build the Anki deck foundation", "detail": "Import a Vietnamese deck, then add 10 personal cards from real listening/reading every session.", "tags": ["anki"], "links": [["AnkiVN", "https://ankivn.com/"], ["Vietnamese decks", "https://ankiweb.net/shared/decks?search=vietnamese"]]}, {"id": "vn-03", "title": "Tone and pronunciation audit", "detail": "Record yourself reading 1 paragraph. Compare with native audio. Fix tones before speed.", "tags": ["speaking"], "links": [["YouTube: Vietnamese pronunciation", "https://www.youtube.com/results?search_query=Vietnamese+tones+pronunciation"]]}, {"id": "vn-04", "title": "30-second shadowing loop", "detail": "Pick a short news clip. Listen once, replay, speak with the speaker, then record yourself.", "tags": ["listening"], "links": [["VTV24", "https://www.youtube.com/@vtv24"], ["VTVGo YouTube", "https://www.youtube.com/@vtvgo"]]}, {"id": "vn-05", "title": "Dictation: write exactly what you hear", "detail": "Use 20–60 seconds of audio. Write, replay, correct, then add unknown words to Anki.", "tags": ["dictation"], "links": [["VTVGo", "https://vtvgo.vn/"]]}, {"id": "vn-06", "title": "VnExpress / VietnamPlus article summary", "detail": "Read one article. Write a 5-sentence Vietnamese summary and one personal opinion sentence.", "tags": ["reading", "writing"], "links": [["VnExpress", "https://vnexpress.net/"], ["VietnamPlus", "https://www.vietnamplus.vn/"]]}, {"id": "vn-07", "title": "Southern + Northern accent exposure", "detail": "Alternate VTV-style news with Ho Chi Minh/Southern content. Track words that sound different.", "tags": ["dialects"], "links": [["VTVGo", "https://vtvgo.vn/"], ["YouTube Southern Vietnamese", "https://www.youtube.com/results?search_query=Southern+Vietnamese+listening"]]}, {"id": "vn-08", "title": "Write while hearing: 1-minute target", "detail": "Write key phrases while audio plays. Do not pause until the minute ends, then correct.", "tags": ["write while hearing"], "links": [["Vietnamese news search", "https://www.youtube.com/results?search_query=tin+t%E1%BB%A9c+Vi%E1%BB%87t+Nam"]]}, {"id": "vn-09", "title": "Watch: Mắt Biếc", "detail": "Watch with Vietnamese subtitles if available. Record 10 new words and a 100-word summary.", "tags": ["movie"], "links": [["Search title", "https://www.google.com/search?q=M%E1%BA%AFt+Bi%E1%BA%BFc+movie"]]}, {"id": "vn-10", "title": "Watch: Bố Già", "detail": "Focus on everyday speech and family/social vocabulary. Write 5 useful spoken phrases.", "tags": ["movie"], "links": [["Search title", "https://www.google.com/search?q=B%E1%BB%91+Gi%C3%A0+movie"]]}, {"id": "vn-11", "title": "Watch: Tôi Thấy Hoa Vàng Trên Cỏ Xanh", "detail": "Focus on narration, rural vocabulary, and emotional description. Summarize the main conflict.", "tags": ["movie"], "links": [["Search title", "https://www.google.com/search?q=T%C3%B4i+Th%E1%BA%A5y+Hoa+V%C3%A0ng+Tr%C3%AAn+C%E1%BB%8F+Xanh+film"]]}, {"id": "vn-12", "title": "Watch: Song Lang", "detail": "Listen for cultural vocabulary, performance terms, and emotional tone. Write a short review.", "tags": ["movie"], "links": [["Search title", "https://www.google.com/search?q=Song+Lang+Vietnamese+film"]]}, {"id": "vn-13", "title": "Watch: Em và Trịnh", "detail": "Use it for music, biography, and slower dialogue. Note 5 expressions you can reuse.", "tags": ["movie"], "links": [["Search title", "https://www.google.com/search?q=Em+v%C3%A0+Tr%E1%BB%8Bnh+film"]]}, {"id": "vn-14", "title": "Podcast/news summary sprint", "detail": "Listen to 3–5 minutes. Write who/what/where/why/how in Vietnamese without translating to English.", "tags": ["listening", "writing"], "links": [["Spotify Vietnamese podcasts", "https://open.spotify.com/search/Vietnamese%20podcast"], ["YouTube Vietnamese podcast", "https://www.youtube.com/results?search_query=Vietnamese+podcast"]]}, {"id": "vn-15", "title": "Vietnamese weekly output", "detail": "Create one 150-word Vietnamese piece: film review, news opinion, school reflection, or story.", "tags": ["writing"], "links": []}]}, {"id": "english", "title": "English — Books, Films, and IB/MYP Analysis", "accent": "amber", "intro": "Use every text for themes, techniques, context, global issues, and paragraph practice.", "tasks": [{"id": "eng-01", "title": "Read Animal Farm", "detail": "Track propaganda, power, allegory, and character symbolism. Write one analytical paragraph.", "tags": ["book", "MYP"], "links": [["SparkNotes", "https://www.sparknotes.com/lit/animalfarm/"], ["LitCharts", "https://www.litcharts.com/lit/animal-farm"]]}, {"id": "eng-02", "title": "Read Persepolis", "detail": "Track graphic-novel devices, revolution, identity, family, and personal vs political conflict.", "tags": ["book", "graphic novel"], "links": [["LitCharts", "https://www.litcharts.com/lit/persepolis"]]}, {"id": "eng-03", "title": "Read Lord of the Flies passages", "detail": "Focus on social commentary, symbolism, violence, leadership, and global issue links.", "tags": ["book", "MYP"], "links": [["LitCharts", "https://www.litcharts.com/lit/lord-of-the-flies"]]}, {"id": "eng-04", "title": "Read Things Fall Apart", "detail": "Track colonialism, tradition, masculinity, language, and cultural clash.", "tags": ["book", "IB"], "links": [["LitCharts", "https://www.litcharts.com/lit/things-fall-apart"]]}, {"id": "eng-05", "title": "Read The House on Mango Street", "detail": "Use vignettes to study identity, voice, imagery, and short-form structure.", "tags": ["book"], "links": [["Search guide", "https://www.google.com/search?q=The+House+on+Mango+Street+study+guide"]]}, {"id": "eng-06", "title": "Read or sample Romeo and Juliet", "detail": "Focus on tragedy, conflict between generations, imagery, and dramatic technique.", "tags": ["Shakespeare", "MYP"], "links": [["SparkNotes", "https://www.sparknotes.com/shakespeare/romeojuliet/"]]}, {"id": "eng-07", "title": "Read Antigone summary + key scenes", "detail": "Track protest, morality, authority, gender, and civil disobedience.", "tags": ["play", "MYP"], "links": [["LitCharts Antigone", "https://www.litcharts.com/lit/antigone"]]}, {"id": "eng-08", "title": "Poetry technique bank", "detail": "Collect 15 techniques: imagery, metaphor, tone, enjambment, caesura, rhyme, rhythm, structure, etc.", "tags": ["poetry"], "links": [["Literary devices", "https://literarydevices.net/"]]}, {"id": "eng-09", "title": "Annotation routine", "detail": "For each chapter/scene: quote, technique, effect, theme, global issue, one sentence of interpretation.", "tags": ["analysis"], "links": []}, {"id": "eng-10", "title": "Paragraph routine: claim-evidence-analysis-link", "detail": "Write one paragraph from a text. Highlight claim, evidence, technique, effect, and final link.", "tags": ["writing"], "links": [["Purdue OWL", "https://owl.purdue.edu/"]]}, {"id": "eng-11", "title": "Watch: Parasite", "detail": "Track class, space, symbolism, irony, and visual contrast. Write one global-issue paragraph.", "tags": ["film"], "links": [["Search title", "https://www.google.com/search?q=Parasite+film+analysis"]]}, {"id": "eng-12", "title": "Watch: Minari", "detail": "Track identity, family, migration, language, and belonging. Compare to a book theme.", "tags": ["film"], "links": [["Search title", "https://www.google.com/search?q=Minari+film+analysis"]]}, {"id": "eng-13", "title": "Watch: Roma", "detail": "Track class, domestic labor, cinematography, silence, and social context.", "tags": ["film"], "links": [["Search title", "https://www.google.com/search?q=Roma+film+analysis+Alfonso+Cuar%C3%B3n"]]}, {"id": "eng-14", "title": "Watch: The Truman Show", "detail": "Track media control, identity, consumer culture, and freedom. Connect to advertising units.", "tags": ["film"], "links": [["Search title", "https://www.google.com/search?q=The+Truman+Show+film+analysis"]]}, {"id": "eng-15", "title": "Build a quote bank", "detail": "Collect 20 short quotes across books/films. For each: technique, theme, effect, and possible essay use.", "tags": ["revision"], "links": []}]}, {"id": "efficiency", "title": "Efficiency System", "accent": "purple", "intro": "Use these while working through the academic checklist so the work sticks.", "tasks": [{"id": "eff-01", "title": "Active recall after every session", "detail": "Close the tab/book. Write what you remember. Then check gaps and make Anki cards or error-log entries.", "tags": ["active recall"], "links": [["Anki", "https://apps.ankiweb.net/"]]}, {"id": "eff-02", "title": "Spaced repetition loop", "detail": "Review new cards the next day, three days later, one week later, then three weeks later.", "tags": ["anki"], "links": [["Anki Manual", "https://docs.ankiweb.net/"]]}, {"id": "eff-03", "title": "Feynman explanation", "detail": "Explain one math idea, Vietnamese rule, or English technique in simple words. Fix any unclear part.", "tags": ["understanding"], "links": []}, {"id": "eff-04", "title": "Interleaving", "detail": "Mix subjects across the day: Math AI, Vietnamese, English, then review. Do not grind only one subject forever.", "tags": ["study method"], "links": []}, {"id": "eff-05", "title": "Mistake retry system", "detail": "Redo mistakes after 48 hours without looking. If still wrong, create a simpler prerequisite task.", "tags": ["error log"], "links": []}, {"id": "eff-06", "title": "Weekly review", "detail": "Choose 3 wins, 3 weak points, and 3 next actions. Copy a fresh progress key after reviewing.", "tags": ["tracking"], "links": []}, {"id": "eff-07", "title": "Phone friction", "detail": "Use app blocker or Focus mode during deep work. Keep entertainment for chosen break time.", "tags": ["focus"], "links": [["Forest", "https://www.forestapp.cc/"], ["Cold Turkey", "https://getcoldturkey.com/"]]}, {"id": "eff-08", "title": "Minimum viable day", "detail": "On low-energy days, only do: 10 Anki cards, 5 math questions, 10 minutes Vietnamese listening, 10 pages reading.", "tags": ["consistency"], "links": []}]}, {"id": "resources", "title": "Resource Hub", "accent": "pink", "intro": "Convenient links grouped by subject.", "tasks": [{"id": "res-math", "title": "Open Math AI resource set", "detail": "Use this when you are ready to study math. Keep Khan Academy as the main path.", "tags": ["resources"], "links": [["Khan Academy Algebra", "https://www.khanacademy.org/math/algebra"], ["Khan Academy Algebra 2", "https://www.khanacademy.org/math/algebra2"], ["Khan Academy Statistics & Probability", "https://www.khanacademy.org/math/statistics-probability"], ["Khan Academy Compound Interest", "https://www.khanacademy.org/economics-finance-domain/core-finance/interest-tutorial/compound-interest-tutorial"], ["Khan Academy Z-scores", "https://www.khanacademy.org/math/statistics-probability/modeling-distributions-of-data/z-scores/a/z-scores-review"], ["Khan Academy Chi-square", "https://www.khanacademy.org/math/statistics-probability/inference-categorical-data-chi-square-tests"], ["Khan Academy Vectors", "https://www.khanacademy.org/math/linear-algebra/vectors-and-spaces"], ["GeoGebra Voronoi search", "https://www.geogebra.org/search/voronoi"], ["Desmos Graphing Calculator", "https://www.desmos.com/calculator"], ["IB Mathematics AI syllabus search", "https://www.ibo.org/programmes/diploma-programme/curriculum/mathematics/"]]}, {"id": "res-vn", "title": "Open Vietnamese resource set", "detail": "Use this for listening, reading, decks, and Vietnamese media.", "tags": ["resources"], "links": [["Anki download", "https://apps.ankiweb.net/"], ["AnkiWeb shared decks", "https://ankiweb.net/shared/decks"], ["Anki Vietnamese decks", "https://ankiweb.net/shared/decks?search=vietnamese"], ["AnkiVN deck library", "https://ankivn.com/"], ["VTVGo", "https://vtvgo.vn/"], ["VTVGo YouTube", "https://www.youtube.com/@vtvgo"], ["VTV24 YouTube", "https://www.youtube.com/@vtv24"], ["VietnamPlus", "https://www.vietnamplus.vn/"], ["VnExpress", "https://vnexpress.net/"], ["VnExpress International", "https://e.vnexpress.net/"], ["YouTube search: Vietnamese news slow", "https://www.youtube.com/results?search_query=Vietnamese+news+slow"]]}, {"id": "res-eng", "title": "Open English resource set", "detail": "Use this for guides, literary analysis, and writing support.", "tags": ["resources"], "links": [["SparkNotes Animal Farm", "https://www.sparknotes.com/lit/animalfarm/"], ["LitCharts Animal Farm", "https://www.litcharts.com/lit/animal-farm"], ["LitCharts Persepolis", "https://www.litcharts.com/lit/persepolis"], ["LitCharts Lord of the Flies", "https://www.litcharts.com/lit/lord-of-the-flies"], ["LitCharts Things Fall Apart", "https://www.litcharts.com/lit/things-fall-apart"], ["SparkNotes Romeo and Juliet", "https://www.sparknotes.com/shakespeare/romeojuliet/"], ["Literary devices list", "https://literarydevices.net/"], ["Purdue OWL Writing Lab", "https://owl.purdue.edu/"]]}, {"id": "res-tools", "title": "Open tools and embedded local files", "detail": "Download the embedded starter Anki TSV from this single HTML file, then import it into Anki.", "tags": ["resources"], "links": [["Download embedded Anki TSV", "__STARTER_TSV__"], ["Anki Manual", "https://docs.ankiweb.net/"]]}]}];
+const STORAGE_KEY = 'summerLearningCanvas.v6.state';
+const LEGACY_KEYS = ['summerLearningCanvas.v5.state','summerLearningCanvas.v4.state','summerLearning.v3','summerLearningCanvas.v3.state','lordSkibidi.summerCanvas.v1.progress'];
+const KEY_PREFIX = 'SLC1.';
+const STARTER_TSV = `Front\tBack\tTags
+What does standard deviation measure?\tThe spread of data around the mean.\tmath statistics
+What is correlation?\tA measure of the direction and strength of a relationship between two quantitative variables.\tmath statistics
+What is compound interest?\tInterest calculated on the original amount plus previously earned interest.\tmath finance
+What is a function domain?\tThe set of allowed input values.\tmath functions
+What is a function range?\tThe set of possible output values.\tmath functions
+Vietnamese goal: write while hearing means?\tListen and write key words or exact phrases while audio continues playing.\tvietnamese listening
+Vietnamese shadowing means?\tListen to a short clip and speak along with the speaker to improve rhythm, tones, and pronunciation.\tvietnamese speaking
+English analysis: technique means?\tA method the writer/director uses, such as imagery, symbolism, contrast, tone, or structure.\tenglish analysis
+English analysis: effect means?\tWhat the technique makes the audience think, feel, notice, or understand.\tenglish analysis
+Active recall means?\tClose the resource and retrieve the information from memory before checking.\tefficiency
+`;
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+const allTasks = () => SECTIONS.flatMap(s => s.tasks.map(t => ({...t, sectionId:s.id, sectionTitle:s.title})));
+const taskIds = () => allTasks().map(t => t.id);
+let state = { version: 6, checked: {}, updatedAt: null };
+let lastSavedTimer;
+
+function nowStamp(){ return new Date().toLocaleString([], {dateStyle:'medium', timeStyle:'short'}); }
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){ state = {...state, ...JSON.parse(raw)}; return; }
+    for(const key of LEGACY_KEYS){
+      const oldRaw = localStorage.getItem(key); if(!oldRaw) continue;
+      const old = JSON.parse(oldRaw); const checked = old.checked || old.completed || old.tasks || {};
+      state = {...state, checked}; saveState('Migrated older progress'); return;
+    }
+  }catch(e){ console.warn('Could not load progress', e); }
+}
+
+function saveState(msg='Saved'){
+  state.version = 6; state.updatedAt = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  $('#saveStatus').textContent = `${msg} • ${nowStamp()}`;
+  clearTimeout(lastSavedTimer);
+  lastSavedTimer = setTimeout(()=>$('#saveStatus').textContent=`Saved • ${nowStamp()}`,1200);
+}
+
+async function persistStorage(){
+  try{ if(navigator.storage && navigator.storage.persist){ await navigator.storage.persist(); } }catch(e){}
+}
+
+function pct(done,total){ return total ? Math.round((done/total)*100) : 0; }
+
+function updateProgress(){
+  const tasks = allTasks();
+  const done = tasks.filter(t => state.checked[t.id]).length;
+  const p = pct(done,tasks.length);
+  $('#totalPct').textContent = `${p}%`;
+  $('#totalFill').style.width = `${p}%`;
+  $('#totalText').textContent = `${done} / ${tasks.length} complete`;
+  for(const sec of SECTIONS){
+    const secDone = sec.tasks.filter(t => state.checked[t.id]).length;
+    const secP = pct(secDone, sec.tasks.length);
+    const pctEl = document.querySelector(`[data-nav-pct="${sec.id}"]`); if(pctEl) pctEl.textContent = `${secP}%`;
+    const box = document.querySelector(`[data-section-pct="${sec.id}"]`); if(box) box.textContent = `${secP}%`;
+    const count = document.querySelector(`[data-section-count="${sec.id}"]`); if(count) count.textContent = `${secDone} / ${sec.tasks.length} done`;
+  }
+}
+
+function renderNav(){
+  const nav = $('#nav'); nav.innerHTML = '';
+  for(const sec of SECTIONS){
+    const a = document.createElement('a');
+    a.href = `#${sec.id}`;
+    a.innerHTML = `<span>${sec.title.replace(/ — .*$/,'')}</span><span class="navPct" data-nav-pct="${sec.id}">0%</span>`;
+    nav.appendChild(a);
+  }
+}
+
+function linkHtml(links){
+  return (links||[]).map(([label,url]) => {
+    if(url === '__STARTER_TSV__') return `<a href="#" data-download-tsv="true">${label} ↓</a>`;
+    return `<a href="${url}" target="_blank" rel="noopener">${label} ↗</a>`;
+  }).join('');
+}
+
+function tagHtml(tags){ return (tags||[]).map(t => `<span class="tag">${t}</span>`).join(''); }
+
+function renderSections(){
+  const wrap = $('#sections'); wrap.innerHTML = '';
+  for(const sec of SECTIONS){
+    const section = document.createElement('section');
+    section.className = `section accent-${sec.accent}`;
+    section.id = sec.id;
+    section.innerHTML = `<div class="sectionHead"><div><h2>${sec.title}</h2><p>${sec.intro}</p></div><div class="sectionStats"><div class="sectionPct" data-section-pct="${sec.id}">0%</div><div class="sectionCount" data-section-count="${sec.id}">0 / 0 done</div></div></div><div class="taskList"></div>`;
+    const list = section.querySelector('.taskList');
+    for(const t of sec.tasks){
+      const task = document.createElement('article');
+      task.className = 'task';
+      task.dataset.id = t.id;
+      task.dataset.section = sec.id;
+      task.dataset.text = `${t.title} ${t.detail} ${(t.tags||[]).join(' ')}`.toLowerCase();
+      task.innerHTML = `<div><input class="checkbox" type="checkbox" aria-label="Mark complete: ${t.title.replaceAll('"','')}" ${state.checked[t.id]?'checked':''}></div><div><h3>${t.title}</h3><p>${t.detail}</p><div class="tags">${tagHtml(t.tags)}</div><div class="links">${linkHtml(t.links)}</div></div>`;
+      if(state.checked[t.id]) task.classList.add('done');
+      list.appendChild(task);
+    }
+    wrap.appendChild(section);
+  }
+  $$('.checkbox').forEach(cb => cb.addEventListener('change', e => {
+    const task = e.target.closest('.task');
+    const id = task.dataset.id;
+    state.checked[id] = e.target.checked;
+    if(!e.target.checked) delete state.checked[id];
+    task.classList.toggle('done', e.target.checked);
+    saveState();
+    updateProgress();
+    applyFilters();
+  }));
+  $$('[data-download-tsv]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    downloadStarterTsv();
+  }));
+}
+
+function renderFilters(){
+  const sel = $('#sectionFilter');
+  for(const sec of SECTIONS){
+    const opt = document.createElement('option');
+    opt.value=sec.id;
+    opt.textContent=sec.title;
+    sel.appendChild(opt);
+  }
+}
+
+function applyFilters(){
+  const q = $('#search').value.trim().toLowerCase();
+  const secFilter = $('#sectionFilter').value;
+  const status = $('#statusFilter').value;
+  let visible = 0;
+  $$('.section').forEach(sec => {
+    let secVisible = 0;
+    const secId = sec.id;
+    sec.querySelectorAll('.task').forEach(task => {
+      const checked = !!state.checked[task.dataset.id];
+      const matchText = !q || task.dataset.text.includes(q);
+      const matchSec = secFilter === 'all' || secId === secFilter;
+      const matchStatus = status === 'all' || (status === 'done' && checked) || (status === 'open' && !checked);
+      const show = matchText && matchSec && matchStatus;
+      task.style.display = show ? '' : 'none';
+      if(show){ secVisible++; visible++; }
+    });
+    sec.style.display = secVisible ? '' : 'none';
+  });
+  $('#emptyState').style.display = visible ? 'none' : 'block';
+}
+
+function bytesToBase64Url(bytes){
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary).replaceAll('+','-').replaceAll('/','_').replaceAll('=','');
+}
+
+function base64UrlToBytes(str){
+  str = str.replaceAll('-','+').replaceAll('_','/');
+  while(str.length % 4) str += '=';
+  const binary = atob(str);
+  return Array.from(binary, ch => ch.charCodeAt(0));
+}
+
+function makeProgressKey(){
+  const ids = taskIds();
+  const bytes = [];
+  for(let i=0; i<ids.length; i+=8){
+    let byte = 0;
+    for(let bit=0; bit<8; bit++){
+      const id = ids[i+bit];
+      if(id && state.checked[id]) byte |= (1 << (7-bit));
+    }
+    bytes.push(byte);
+  }
+  return `${KEY_PREFIX}${bytesToBase64Url(bytes)}`;
+}
+
+function loadProgressKey(key){
+  key = (key || '').trim();
+  if(!key.startsWith(KEY_PREFIX)) throw new Error(`Invalid key. It must start with ${KEY_PREFIX}`);
+  const bytes = base64UrlToBytes(key.slice(KEY_PREFIX.length));
+  const ids = taskIds();
+  const checked = {};
+  ids.forEach((id, i) => {
+    const byte = bytes[Math.floor(i/8)] || 0;
+    const mask = 1 << (7-(i%8));
+    if(byte & mask) checked[id] = true;
+  });
+  state.checked = checked;
+  saveState('Loaded progress key');
+  renderSections();
+  updateProgress();
+  applyFilters();
+}
+
+function downloadStarterTsv(){
+  const blob = new Blob([STARTER_TSV], {type:'text/tab-separated-values;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'starter_anki_cards.tsv';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),500);
+}
+
+function setModal(title, text, applyFn){
+  $('#modalTitle').textContent = title;
+  $('#codeText').value = text || '';
+  $('#codeModal').classList.add('show');
+  $('#modalApply').onclick = applyFn;
+}
+
+function init(){
+  loadState();
+  renderNav();
+  renderFilters();
+  renderSections();
+  updateProgress();
+  applyFilters();
+  persistStorage();
+
+  $('#search').addEventListener('input', applyFilters);
+  $('#sectionFilter').addEventListener('change', applyFilters);
+  $('#statusFilter').addEventListener('change', applyFilters);
+  $('#clearFilters').addEventListener('click', () => {
+    $('#search').value='';
+    $('#sectionFilter').value='all';
+    $('#statusFilter').value='all';
+    applyFilters();
+  });
+
+  $('#copyCodeBtn').addEventListener('click', async () => {
+    const key = makeProgressKey();
+    try{
+      await navigator.clipboard.writeText(key);
+      $('#saveStatus').textContent='Progress key copied';
+    }catch(e){
+      setModal('Copy this progress key', key, () => $('#codeModal').classList.remove('show'));
+    }
+  });
+
+  $('#loadCodeBtn').addEventListener('click', () => setModal('Paste progress key', '', () => {
+    try{
+      loadProgressKey($('#codeText').value.trim());
+      $('#codeModal').classList.remove('show');
+    }catch(e){
+      alert(e.message || 'Invalid key.');
+    }
+  }));
+
+  $('#modalClose').addEventListener('click', () => $('#codeModal').classList.remove('show'));
+}
+
+init();
+</script>
+</body>
+</html>
